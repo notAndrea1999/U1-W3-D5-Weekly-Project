@@ -28,10 +28,10 @@ public class Application {
         Random rndm = new Random();
         LocalDate l1 = LocalDate.of(rndm.nextInt(1970, 2023), rndm.nextInt(01, 12), rndm.nextInt(01, 30));
 
-        try {
-            Supplier<Books> booksSupplier = () -> new Books(faker.book().title(), rndm.nextInt(1970, 2023), rndm.nextInt(50, 300), faker.book().author(), faker.book().genre());
-            Supplier<Magazine> magazineSupplier = () -> new Magazine(faker.book().title(), rndm.nextInt(1970, 2023), rndm.nextInt(50, 300), Periodicity.randomPeriodicity());
-            Supplier<User> userSupplier = () -> new User(faker.name().firstName(), faker.name().lastName(), LocalDate.of(rndm.nextInt(1970, 2023), rndm.nextInt(01, 12), rndm.nextInt(01, 30)));
+
+        Supplier<Books> booksSupplier = () -> new Books(faker.book().title(), rndm.nextInt(1970, 2023), rndm.nextInt(50, 300), faker.book().author(), faker.book().genre());
+        Supplier<Magazine> magazineSupplier = () -> new Magazine(faker.book().title(), rndm.nextInt(1970, 2023), rndm.nextInt(50, 300), Periodicity.randomPeriodicity());
+        Supplier<User> userSupplier = () -> new User(faker.name().firstName(), faker.name().lastName(), LocalDate.of(rndm.nextInt(1970, 2023), rndm.nextInt(01, 12), rndm.nextInt(01, 30)));
 
              /*
 Creazione books and magazines
@@ -96,9 +96,10 @@ Creazione prestiti
                         }
             */
 
-            Scanner input = new Scanner(System.in);
-            loop:
-            while (true) {
+        Scanner input = new Scanner(System.in);
+        loop:
+        while (true) {
+            try {
                 System.out.println("Che vuoi fare?");
                 System.out.println("1:RICERCA TRAMITE ISBN, 2: RICERCA PER ANNO DI PUBBLICAZIONE, 3: RICERCA PER AUTORE, " +
                         "4: RICERCA PER TITOLO, 5: RICERCA PUBBLICAZIONI IN PRESTITO PER UTENTE, 6: RICERCA TUTTI I PRESTITI SCADUTI O NON ANCORA RESITUTITI");
@@ -163,18 +164,15 @@ Creazione prestiti
                     }
 
                 }
-
-
+            } catch (Exception ex) {
+                System.err.println(ex);
+                ;
             }
-
-
-        } catch (Exception ex) {
-            System.out.println(ex);
         }
 
-
-        System.out.println("Hello World!");
         em.close();
         emf.close();
+        input.close();
     }
+
 }
