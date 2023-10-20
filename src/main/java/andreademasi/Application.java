@@ -63,19 +63,37 @@ Creazione prestiti
             System.out.println("**************** Ricerca pubblicazione per anno *************************");
             //Ricerca pubblicazione per anno
             List<Pubblicazioni> foundPublicationByYear = pd.getPubblicazioniByIssueYear(1988);
-            foundPublicationByYear.forEach(elem -> System.out.println(elem));
+            //foundPublicationByYear.forEach(elem -> System.out.println(elem));
             System.out.println("**************** Ricerca per autore *************************");
             //Ricerca per autore
             List<Pubblicazioni> foundPublicationByAuthor = pd.getPubblicazioniByAuthor("Pericle Sartori");
-            foundPublicationByAuthor.forEach(elem -> System.out.println(elem));
+            //foundPublicationByAuthor.forEach(elem -> System.out.println(elem));
             System.out.println("**************** Ricerca per titolo o parte di esso *************************");
             //Ricerca per titolo o parte di esso
-            List<Pubblicazioni> foundPublicationByTitle = pd.getPubblicazioniByTitle("co");
-            foundPublicationByTitle.forEach(elem -> System.out.println(elem));
+            List<Pubblicazioni> foundPublicationByTitle = pd.getPubblicazioniByTitle("th");
+            if (foundPublicationByTitle != null) {
+                // foundPublicationByTitle.forEach(elem -> System.out.println(elem));
+            } else {
+                System.out.println("Nessuna pubblicazione con titolo inserito trovata");
+            }
+
             //Ricerca prestiro scaduto o null
             System.out.println("**************** Ricerca prestiro scaduto o null *************************");
-            List<Loan> foundLoan = pd.getNullAndExpiredLoans();
-            foundLoan.forEach(elem -> System.out.println(elem));
+            List<Loan> foundLoan = ld.getNullAndExpiredLoans();
+            if (!foundLoan.isEmpty()) {
+                //foundLoan.forEach(elem -> System.out.println(elem));
+            } else {
+                System.out.println("Nessun prestito trovato");
+            }
+            //Ricerca elementi in noleggio trmite utente
+            System.out.println("**************** Ricerca elementi in noleggio trmite utente *************************");
+            List<Loan> foundLoanByUserId = ld.getActiveLoanByUserId(35);
+            if (!foundLoan.isEmpty()) {
+                foundLoanByUserId.forEach(elem -> System.out.println(elem));
+            } else {
+                System.out.println("Nessun prestito associato all'utente");
+            }
+
 
         } catch (Exception ex) {
             System.out.println(ex);

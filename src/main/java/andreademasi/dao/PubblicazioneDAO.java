@@ -1,6 +1,5 @@
 package andreademasi.dao;
 
-import andreademasi.entities.Loan;
 import andreademasi.entities.Pubblicazioni;
 
 import javax.persistence.EntityManager;
@@ -68,11 +67,6 @@ public class PubblicazioneDAO {
         TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE LOWER(p.title) LIKE LOWER(CONCAT(:title, '%'))", Pubblicazioni.class);
         getPubblicazioni.setParameter("title", title);
         return getPubblicazioni.getResultList();
-    }
-
-    public List<Loan> getNullAndExpiredLoans() {
-        TypedQuery<Loan> getLoan = em.createQuery("SELECT l FROM Loan l WHERE l.expectedReturnDate < l.returnDate OR l.expectedReturnDate IS null ", Loan.class);
-        return getLoan.getResultList();
     }
 
 
