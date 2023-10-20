@@ -4,12 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "publicatiion_type")
 public abstract class Pubblicazioni {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int isbn;
     protected String title;
+    @Column(name = "issue_year")
     protected int issueYear;
+    @Column(name = "pages_num")
     protected int pagesNum;
 
     public Pubblicazioni() {
