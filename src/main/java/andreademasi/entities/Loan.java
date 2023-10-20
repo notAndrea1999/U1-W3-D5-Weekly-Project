@@ -10,8 +10,12 @@ public class Loan {
     @GeneratedValue
     @Column(name = "loan_id")
     private int loanId;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "pubblicazioni_Id")
     private Pubblicazioni pubblicazioni;
     @Column(name = "start_loan_date")
     private LocalDate startDate;

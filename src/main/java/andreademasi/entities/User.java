@@ -2,6 +2,7 @@ package andreademasi.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,8 +16,11 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "birsth_date")
+    @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Loan> loanSet;
 
     public User() {
     }

@@ -1,6 +1,7 @@
 package andreademasi.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -14,6 +15,8 @@ public abstract class Pubblicazioni {
     protected int issueYear;
     @Column(name = "pages_num")
     protected int pagesNum;
+    @OneToMany(mappedBy = "pubblicazioni")
+    private Set<Loan> loanSet;
 
     public Pubblicazioni() {
     }
