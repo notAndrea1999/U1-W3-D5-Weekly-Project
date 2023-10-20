@@ -25,7 +25,7 @@ public class PubblicazioneDAO {
 
     }
 
-    public Pubblicazioni findById(long id) {
+    public Pubblicazioni findById(int id) {
         return em.find(Pubblicazioni.class, id);
     }
 

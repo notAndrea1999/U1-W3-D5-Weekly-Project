@@ -27,12 +27,12 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(User user, Pubblicazioni pubblicazioni, LocalDate startDate, LocalDate expectedReturnDate, LocalDate returnDate) {
+    public Loan(User user, Pubblicazioni pubblicazioni, LocalDate startDate) {
         this.user = user;
         this.pubblicazioni = pubblicazioni;
         this.startDate = startDate;
-        this.expectedReturnDate = expectedReturnDate;
-        this.returnDate = returnDate;
+        this.expectedReturnDate = startDate.plusDays(30);
+       
     }
 
     public int getLoanId() {

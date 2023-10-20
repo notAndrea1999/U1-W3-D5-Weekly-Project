@@ -25,7 +25,7 @@ public class UserDAO {
 
     }
 
-    public User findById(long id) {
+    public User findById(int id) {
         return em.find(User.class, id);
     }
 

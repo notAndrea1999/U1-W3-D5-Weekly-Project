@@ -19,7 +19,7 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<Loan> loanSet;
 
     public User() {
@@ -29,6 +29,10 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+    }
+
+    public Set<Loan> getLoanSet() {
+        return loanSet;
     }
 
     public int getCardNumber() {

@@ -25,7 +25,7 @@ public class LoanDAO {
 
     }
 
-    public Loan findById(long id) {
+    public Loan findById(int id) {
         return em.find(Loan.class, id);
     }
 

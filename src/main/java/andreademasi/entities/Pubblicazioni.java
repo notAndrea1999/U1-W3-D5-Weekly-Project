@@ -15,7 +15,7 @@ public abstract class Pubblicazioni {
     protected int issueYear;
     @Column(name = "pages_num")
     protected int pagesNum;
-    @OneToMany(mappedBy = "pubblicazioni")
+    @OneToMany(mappedBy = "pubblicazioni", cascade = CascadeType.REMOVE)
     private Set<Loan> loanSet;
 
     public Pubblicazioni() {
