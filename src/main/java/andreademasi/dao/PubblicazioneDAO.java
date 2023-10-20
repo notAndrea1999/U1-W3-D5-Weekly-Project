@@ -58,7 +58,7 @@ public class PubblicazioneDAO {
     }
 
     public List<Pubblicazioni> getPubblicazioniByAuthor(String author) {
-        TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE p.author = :author", Pubblicazioni.class);
+        TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE LOWER(p.author) = LOWER(:author)", Pubblicazioni.class);
         getPubblicazioni.setParameter("author", author);
         return getPubblicazioni.getResultList();
     }
