@@ -1,9 +1,12 @@
 package andreademasi.dao;
 
+import andreademasi.entities.Loan;
 import andreademasi.entities.Pubblicazioni;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class PubblicazioneDAO {
     private final EntityManager em;
@@ -29,7 +32,7 @@ public class PubblicazioneDAO {
         return em.find(Pubblicazioni.class, id);
     }
 
-    public void findByIdAndDelete(long id) {
+    public void findByIdAndDelete(int id) {
         Pubblicazioni foundPublication = em.find(Pubblicazioni.class, id);
 
         if (foundPublication != null) {
@@ -48,4 +51,29 @@ public class PubblicazioneDAO {
         em.refresh(pubblicazioni);
         System.out.println("La pubblicazione e' stata refreshata");
     }
+
+    public List<Pubblicazioni> getPubblicazioniByIssueYear(int issueYear) {
+        TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE p.issueYear = :issueYear", Pubblicazioni.class);
+        getPubblicazioni.setParameter("issueYear", issueYear);
+        return getPubblicazioni.getResultList();
+    }
+
+    public List<Pubblicazioni> getPubblicazioniByAuthor(String author) {
+        TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE p.author = :author", Pubblicazioni.class);
+        getPubblicazioni.setParameter("author", author);
+        return getPubblicazioni.getResultList();
+    }
+
+    public List<Pubblicazioni> getPubblicazioniByTitle(String title) {
+        TypedQuery<Pubblicazioni> getPubblicazioni = em.createQuery("SELECT p FROM Pubblicazioni p WHERE LOWER(p.title) LIKE LOWER(CONCAT(:title, '%'))", Pubblicazioni.class);
+        getPubblicazioni.setParameter("title", title);
+        return getPubblicazioni.getResultList();
+    }
+
+    public List<Loan> getNullAndExpiredLoans() {
+        TypedQuery<Loan> getLoan = em.createQuery("SELECT l FROM Loan l WHERE l.expectedReturnDate < l.returnDate OR l.expectedReturnDate IS null ", Loan.class);
+        return getLoan.getResultList();
+    }
+
+
 }

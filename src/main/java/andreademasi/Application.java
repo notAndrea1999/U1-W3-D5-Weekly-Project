@@ -3,16 +3,14 @@ package andreademasi;
 import andreademasi.dao.LoanDAO;
 import andreademasi.dao.PubblicazioneDAO;
 import andreademasi.dao.UserDAO;
-import andreademasi.entities.Books;
-import andreademasi.entities.Magazine;
-import andreademasi.entities.Periodicity;
-import andreademasi.entities.User;
+import andreademasi.entities.*;
 import com.github.javafaker.Faker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -56,8 +54,28 @@ Creazione prestiti
                 ld.save(newLoan);
             }
 */
-            //Rimozione di un elemento dal catalogo dato codice isbn
-            pd.findByIdAndDelete();
+            //Ricerca e Rimozione di un elemento dal catalogo dato codice isbn
+            //Pubblicazioni foundPublication = pd.findById(1);
+            //System.out.println("Hai trovato la pubblicazione: " + foundPublication);
+            //pd.findByIdAndDelete(1);
+            //System.out.println(foundPublication);
+
+            System.out.println("**************** Ricerca pubblicazione per anno *************************");
+            //Ricerca pubblicazione per anno
+            List<Pubblicazioni> foundPublicationByYear = pd.getPubblicazioniByIssueYear(1988);
+            foundPublicationByYear.forEach(elem -> System.out.println(elem));
+            System.out.println("**************** Ricerca per autore *************************");
+            //Ricerca per autore
+            List<Pubblicazioni> foundPublicationByAuthor = pd.getPubblicazioniByAuthor("Pericle Sartori");
+            foundPublicationByAuthor.forEach(elem -> System.out.println(elem));
+            System.out.println("**************** Ricerca per titolo o parte di esso *************************");
+            //Ricerca per titolo o parte di esso
+            List<Pubblicazioni> foundPublicationByTitle = pd.getPubblicazioniByTitle("co");
+            foundPublicationByTitle.forEach(elem -> System.out.println(elem));
+            //Ricerca prestiro scaduto o null
+            System.out.println("**************** Ricerca prestiro scaduto o null *************************");
+            List<Loan> foundLoan = pd.getNullAndExpiredLoans();
+            foundLoan.forEach(elem -> System.out.println(elem));
 
         } catch (Exception ex) {
             System.out.println(ex);

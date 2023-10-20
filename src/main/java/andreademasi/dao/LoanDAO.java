@@ -29,7 +29,7 @@ public class LoanDAO {
         return em.find(Loan.class, id);
     }
 
-    public void findByIdAndDelete(long id) {
+    public void findByIdAndDelete(int id) {
         Loan foundLoan = em.find(Loan.class, id);
 
         if (foundLoan != null) {

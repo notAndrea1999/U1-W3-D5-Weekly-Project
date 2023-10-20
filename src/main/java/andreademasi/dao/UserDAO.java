@@ -29,7 +29,7 @@ public class UserDAO {
         return em.find(User.class, id);
     }
 
-    public void findByIdAndDelete(long id) {
+    public void findByIdAndDelete(int id) {
         User foundUser = em.find(User.class, id);
 
         if (foundUser != null) {
